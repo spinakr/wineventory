@@ -1,0 +1,14 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  background: #fdf6e3;
+}
+
+.container {
+  margin: 0 auto;
+  height: 100%;
+  padding: 10px;
+  max-width: 1200px;
+}
