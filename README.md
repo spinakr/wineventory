@@ -1,3 +1,8 @@
+## Local development
+
+
+## Deployment
+
 az login
 
 az account set -s <subId>
@@ -5,14 +10,21 @@ az account set -s <subId>
 az group create --name wineventory --location northeurope
 
 <!-- Create storage account -->
-az storage account create --name winestorage --location northeurope --resource-group wineventory --sku Standard_GRS
+az storage account create --name wineventorystorage --location northeurope --resource-group wineventory --sku Standard_GRS
 
-az storage container create --name webapp --account-name winer --public-access blob
+az storage container create --name webapp --account-name wineventorystorage --public-access blob
 
 <!-- Deploy app files to blob container -->
-for f in $(find ./build); do az storage blob upload -c webapp --account-name winer -f $f -n ${f#*/build/}; done
+for f in $(find ./build); do az storage blob upload -c webapp --account-name wineventorystorage -f $f -n ${f#*/build/}; done
 
 <!-- Create function app -->
-az functionapp create --deployment-source-url https://github.com/Azure-Samples/functions-quickstart  \
+az functionapp create \
 --resource-group wineventory --consumption-plan-location northeurope \
---name winefunctions --storage-account winestorage  
+--name winefunctions --storage-account wineventorystorage  
+
+zip -r functions.zip ./
+
+az functionapp deployment source config-zip -g wineventory -n \
+winefunctions --src functions.zip
+
+curl -X POST -u anderskofoed --data-binary @"functions.zip" https://wineventory.scm.azurewebsites.net/api/zipdeploy
