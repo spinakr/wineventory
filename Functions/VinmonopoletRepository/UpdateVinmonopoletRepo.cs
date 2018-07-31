@@ -19,7 +19,7 @@ namespace Wineventory.Functions
 
         public static void Run(
             //{second} {minute} {hour} {day} {month} {day-of-week}
-            [TimerTrigger("0 30 9 * * *")]TimerInfo myTimer, //9.30 every day
+            [TimerTrigger("0 30 9 * * *", RunOnStartup=true)]TimerInfo myTimer, //9.30 every day
             [Table(Constants.TableNames.VinmonopoletWinesTableName)] CloudTable vinmonopoletRepo,
             TraceWriter log)
         {

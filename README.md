@@ -1,5 +1,14 @@
 ## Local development
 
+Create a local.settings.json file in the `Functions` directory containing connection string to Azure storage account:
+```json
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "<connectionstring>"
+    }
+}
+```
 
 ## Deployment
 
