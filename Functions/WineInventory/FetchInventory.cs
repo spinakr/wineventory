@@ -17,9 +17,9 @@ namespace Wineventory.Functions
     {
         [FunctionName("FetchInventory")]
         public static HttpResponseMessage Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestMessage req,
-            [Table(Constants.TableNames.WineInventoryTableName)] CloudTable wineInventory,
-            TraceWriter log)
+                [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestMessage req,
+                [Table(Constants.TableNames.WineInventoryTableName)] CloudTable wineInventory,
+                TraceWriter log)
         {
             var querySegment = wineInventory.ExecuteQuerySegmentedAsync(new TableQuery<InventoryWine>(), null);
 

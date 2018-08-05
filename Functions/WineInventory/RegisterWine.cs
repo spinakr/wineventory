@@ -24,11 +24,7 @@ namespace Wineventory.Functions
         {
             dynamic data = req.Content.ReadAsAsync<object>().GetAwaiter().GetResult();
 
-            newWine = new InventoryWine
-            {
-                PartitionKey = "wine",
-                RowKey = Guid.NewGuid().ToString()
-            };
+            newWine = new InventoryWine("Couly-Dutheil La Diligence Chinon 2015", "6967801");
 
             var responseContent = new StringContent(JsonConvert.SerializeObject(newWine));
 
