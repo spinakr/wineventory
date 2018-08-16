@@ -23,7 +23,7 @@ namespace Wineventory.Functions
             [Table(Constants.TableNames.VinmonopoletWinesTableName)] CloudTable vinmonopoletRepo,
             string vinmonopoletId, TraceWriter log)
         {
-            var wine = await vinmonopoletRepo.ExecuteAsync(TableOperation.Retrieve<VinmonopoletWine>("Wine", vinmonopoletId));
+            var wine = await vinmonopoletRepo.SearchWine(vinmonopoletId);
 
             if (wine == null)
             {
