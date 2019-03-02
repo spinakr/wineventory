@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{52F3414A-36D5-4218-B12C-BA6EF58DABBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{52F3414A-36D5-4218-B12C-BA6EF58DABBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BB52DBA1-1688-4D54-B945-36457226CEDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageEndpoint", "src\MessageEndpoint\MessageEndpoint.csproj", "{09529C4B-B1F7-432F-AE5A-EEC00441890B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,18 @@ Global
 		{52F3414A-36D5-4218-B12C-BA6EF58DABBD}.Release|x64.Build.0 = Release|Any CPU
 		{52F3414A-36D5-4218-B12C-BA6EF58DABBD}.Release|x86.ActiveCfg = Release|Any CPU
 		{52F3414A-36D5-4218-B12C-BA6EF58DABBD}.Release|x86.Build.0 = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|x64.Build.0 = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Debug|x86.Build.0 = Debug|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|x64.ActiveCfg = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|x64.Build.0 = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|x86.ActiveCfg = Release|Any CPU
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -45,5 +61,8 @@ Global
 		$4.TabsToSpaces = True
 		$4.scope = text/plain
 		$0.StandardHeader = $5
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{09529C4B-B1F7-432F-AE5A-EEC00441890B} = {BB52DBA1-1688-4D54-B945-36457226CEDC}
 	EndGlobalSection
 EndGlobal
