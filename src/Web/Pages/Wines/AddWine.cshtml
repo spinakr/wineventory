@@ -1,0 +1,21 @@
+
+@page "{vinmonopoletId?}"
+@model Wines.AddWine
+@{
+    ViewData["Title"] = "AddWine";
+}
+<h2>Add wine</h2>
+<div>
+    <form method="get">
+        @Html.TextBox("search", @Model.Data.VinmonopoletId)
+        <!-- <input type="text" name="vinmonopoletId"> -->
+        <input type="submit">
+    </form>
+
+    <ul>
+        <li>@Model.Data.VinmonopoletId</li>
+        <li>@Model.Data.Name</li>
+        <li>@Model.Data.Vintage</li>
+    </ul>
+</div>
+

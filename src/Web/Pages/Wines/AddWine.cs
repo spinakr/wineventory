@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Web.Pages.Wines
 {
-    public class Search : PageModel
+    public class AddWine : PageModel
     {
-        public SearchResult Result;
-        public void OnGet(string vinmonopoletId)
+
+        [BindProperty]
+        public Model Data { get; set; }
+        public void OnGet(string search = null)
         {
-            Result = new SearchResult { Name = "Test Wine", Vintage = "2001", VinmonopoletId = vinmonopoletId };
+            Data = new Model { VinmonopoletId = search };
         }
     }
 
-    public class SearchResult
+    public class Model
     {
         public string Name { get; set; }
         public string Vintage { get; set; }
