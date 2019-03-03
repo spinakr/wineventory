@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageEndpoint", "src\Mess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage", "src\Storage\Storage.csproj", "{FE535EC4-3113-4B67-BD3B-765F3D9384C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,18 @@ Global
 		{FE535EC4-3113-4B67-BD3B-765F3D9384C8}.Release|x64.Build.0 = Release|Any CPU
 		{FE535EC4-3113-4B67-BD3B-765F3D9384C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE535EC4-3113-4B67-BD3B-765F3D9384C8}.Release|x86.Build.0 = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|x64.Build.0 = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -79,5 +93,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{09529C4B-B1F7-432F-AE5A-EEC00441890B} = {BB52DBA1-1688-4D54-B945-36457226CEDC}
 		{FE535EC4-3113-4B67-BD3B-765F3D9384C8} = {BB52DBA1-1688-4D54-B945-36457226CEDC}
+		{8D03F0C7-8A14-4A1A-A56D-C15301333EF4} = {BB52DBA1-1688-4D54-B945-36457226CEDC}
 	EndGlobalSection
 EndGlobal
