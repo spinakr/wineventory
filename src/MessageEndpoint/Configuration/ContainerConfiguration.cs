@@ -1,6 +1,8 @@
 using System.Net.Http;
 using Autofac;
+using Domain;
 using Microsoft.Extensions.DependencyInjection;
+using Storage;
 
 namespace MessageEndpoint.Configuration
 {
@@ -11,6 +13,7 @@ namespace MessageEndpoint.Configuration
             var builder = new ContainerBuilder();
 
             builder.RegisterInstance(HttpClientFactory()).As<IHttpClientFactory>();
+            builder.RegisterInstance(new InMemoryVinmonopoletProductRepository()).As<IVinmonopoletProductRepository>();
 
             return builder.Build();
         }

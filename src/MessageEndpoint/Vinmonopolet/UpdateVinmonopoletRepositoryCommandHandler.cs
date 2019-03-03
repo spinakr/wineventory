@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 using NServiceBus;
 using Wineventory.Domain;
 
@@ -13,24 +14,24 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
     public class UpdateVinmonopoletRepositoryCommandHandler : IHandleMessages<UpdateVinmonopoletRepositoryCommand>
     {
         private const string ProductFilePath = "https://www.vinmonopolet.no/medias/sys_master/products/products/hbc/hb0/8834253127710/produkter.csv";
-        private HttpClient HttpClient;
+        private HttpClient _httpClient;
+        private IVinmonopoletProductRepository _vinmonopoletProductRepository;
 
-        public UpdateVinmonopoletRepositoryCommandHandler(IHttpClientFactory httpClientFactory)
+        public UpdateVinmonopoletRepositoryCommandHandler(IHttpClientFactory httpClientFactory, IVinmonopoletProductRepository vinmonopoletProductRepository)
         {
-            HttpClient = httpClientFactory.CreateClient();
-
+            _httpClient = httpClientFactory.CreateClient();
+            _vinmonopoletProductRepository = vinmonopoletProductRepository;
         }
 
         public async Task Handle(UpdateVinmonopoletRepositoryCommand message, IMessageHandlerContext context)
         {
             var vinmonopoletProducts = await FetchNewProductList();
-            Console.WriteLine($"Fetched new products from vinmonopolet. Number of products: {vinmonopoletProducts.Count()}");
-
+            await _vinmonopoletProductRepository.Store(vinmonopoletProducts);
         }
 
         private async Task<IEnumerable<SearchableProduct>> FetchNewProductList()
         {
-            var stream = await HttpClient.GetStreamAsync(ProductFilePath);
+            var stream = await _httpClient.GetStreamAsync(ProductFilePath);
             var streamReader = new StreamReader(stream, Encoding.GetEncoding("ISO-8859-1"));
             await streamReader.ReadLineAsync(); //skip header
 
@@ -41,6 +42,8 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
                 if (line == null) break;
                 wineInfoEntities.Add(MapToWineInfo(line.Split(';')));
             }
+
+            Console.WriteLine($"Fetched new products from vinmonopolet. Number of products: {wineInfoEntities.Count()}");
             return wineInfoEntities;
         }
 
