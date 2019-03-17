@@ -1,8 +1,10 @@
+using System;
+
 namespace Wineventory.Domain
 {
     public class SearchableProduct
     {
-        public string VinmonopoletId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Fruit { get; set; }
         public string Vintage { get; set; }

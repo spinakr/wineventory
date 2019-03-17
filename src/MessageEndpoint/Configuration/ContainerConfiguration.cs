@@ -1,19 +1,21 @@
 using System.Net.Http;
 using Autofac;
+using Database;
 using Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Storage;
 
 namespace MessageEndpoint.Configuration
 {
     public static class ContainerConfiguration
     {
-        public static IContainer Configure()
+        public static IContainer Configure(IConfiguration config)
         {
             var builder = new ContainerBuilder();
 
             builder.RegisterInstance(HttpClientFactory()).As<IHttpClientFactory>();
-            builder.RegisterInstance(new InMemoryVinmonopoletProductRepository()).As<IVinmonopoletProductRepository>();
+            builder.Register<WineContext>(x => DatabaseContext(config)).InstancePerLifetimeScope();
 
             return builder.Build();
         }
@@ -23,6 +25,14 @@ namespace MessageEndpoint.Configuration
             var serviceProvider = new ServiceCollection().AddHttpClient().BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
             return httpClientFactory;
+        }
+
+        private static WineContext DatabaseContext(IConfiguration config)
+        {
+            var connectionString = config.GetConnectionString("AzureSqlConnection");
+            var builder = new DbContextOptionsBuilder<WineContext>();
+            builder.UseSqlServer(connectionString);
+            return new WineContext(builder.Options);
         }
     }
 }

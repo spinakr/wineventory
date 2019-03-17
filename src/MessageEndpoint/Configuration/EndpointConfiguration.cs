@@ -1,6 +1,7 @@
 using System.Net.Http;
 using Autofac;
 using MessageEndpoint.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 
@@ -12,7 +13,7 @@ namespace Wineventory.MessageEndpoint.Configuration
         {
             var endpointConfiguration = new EndpointConfiguration("MessageEndpoint");
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var container = ContainerConfiguration.Configure();
+            var container = ContainerConfiguration.Configure(LoadSettings());
 
             endpointConfiguration.UseContainer<AutofacBuilder>(
                 customizations: customizations =>
@@ -21,6 +22,12 @@ namespace Wineventory.MessageEndpoint.Configuration
                 });
 
             return endpointConfiguration;
+        }
+
+        private static IConfiguration LoadSettings()
+        {
+            var builder = new ConfigurationBuilder();
+            return builder.AddJsonFile("appsettings.json", optional: false).Build();
         }
 
     }

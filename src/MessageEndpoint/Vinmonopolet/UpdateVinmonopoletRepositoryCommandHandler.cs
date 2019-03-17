@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Database;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using Wineventory.Domain;
 
@@ -15,18 +17,22 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
     {
         private const string ProductFilePath = "https://www.vinmonopolet.no/medias/sys_master/products/products/hbc/hb0/8834253127710/produkter.csv";
         private HttpClient _httpClient;
-        private IVinmonopoletProductRepository _vinmonopoletProductRepository;
+        private WineContext _db;
 
-        public UpdateVinmonopoletRepositoryCommandHandler(IHttpClientFactory httpClientFactory, IVinmonopoletProductRepository vinmonopoletProductRepository)
+        public UpdateVinmonopoletRepositoryCommandHandler(IHttpClientFactory httpClientFactory, WineContext wineContext)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _vinmonopoletProductRepository = vinmonopoletProductRepository;
+            _db = wineContext;
         }
 
         public async Task Handle(UpdateVinmonopoletRepositoryCommand message, IMessageHandlerContext context)
         {
             var vinmonopoletProducts = await FetchNewProductList();
-            await _vinmonopoletProductRepository.Store(vinmonopoletProducts);
+            await _db.Database.ExecuteSqlCommandAsync("TRUNCATE TABLE Products");
+            await _db.Products.AddRangeAsync(vinmonopoletProducts);
+            Console.WriteLine("Writing products");
+            await _db.SaveChangesAsync();
+            Console.WriteLine("Saving...");
         }
 
         private async Task<IEnumerable<SearchableProduct>> FetchNewProductList()
@@ -51,7 +57,7 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
         {
             return new SearchableProduct
             {
-                VinmonopoletId = wineProps[1],
+                Id = wineProps[1],
                 Name = wineProps[2],
                 Vintage = wineProps[23],
                 Fruit = wineProps[25]
