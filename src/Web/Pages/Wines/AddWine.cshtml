@@ -1,23 +1,27 @@
+@page "{vinmonopoletId?}" 
+@model Wines.AddWine 
 
-@page "{vinmonopoletId?}"
-@model Wines.AddWine
-@{
-    ViewData["Title"] = "AddWine";
-}
-<h2>Add wine</h2>
-<div>
+<div class="section">
+  <div class="container">
     <form method="get">
-        @Html.TextBox("vinmonopoletId")
-        <input type="submit">
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input" type="text" placeholder="Vinmonopolet id" name="vinmonopoletId">
+        </div>
+        <div class="control">
+          <input type="submit" class="button" />
+        </div>
+      </div>
     </form>
-    @if(@Model.Data != null){
-        <ul>
-            <li>@Model.Data.Name</li>
-            <li>@Model.Data.Vintage</li>
-            <li>@Model.Data.Producer</li>
-            <li>@Model.Data.Price</li>
-            <li>@Model.Data.Country</li>
-        </ul>
-    }
-</div>
 
+    @if(@Model.Data != null){
+    <ul>
+      <li>@Model.Data.Name</li>
+      <li>@Model.Data.Vintage</li>
+      <li>@Model.Data.Producer</li>
+      <li>@Model.Data.Price</li>
+      <li>@Model.Data.Country</li>
+    </ul>
+    }
+  </div>
+</div>
