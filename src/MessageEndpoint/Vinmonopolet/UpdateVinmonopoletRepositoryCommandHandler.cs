@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -55,13 +56,10 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
 
         private static SearchableProduct MapToWineInfo(string[] wineProps)
         {
-            return new SearchableProduct
-            {
-                Id = wineProps[1],
-                Name = wineProps[2],
-                Vintage = wineProps[23],
-                Fruit = wineProps[25]
-            };
+            double.TryParse(wineProps[4], System.Globalization.NumberStyles.Any, CultureInfo.GetCultureInfo("no-NO"), out var parsedPrice);
+            Console.WriteLine(parsedPrice);
+            return new SearchableProduct(wineProps[1], wineProps[2], wineProps[25], wineProps[23], parsedPrice, wineProps[21], wineProps[6], wineProps[31]);
+
             //Datotid;Varenummer;Varenavn;Volum;Pris;Literpris;Varetype;Produktutvalg;Butikkategori;Fylde;Friskhet;Garvestoffer;Bitterhet;Sodme(14);
             //Farge;Lukt;Smak;Passertil01;Passertil02;Passertil03;Land(21);Distrikt;Underdistrikt;Argang;Rastoff(25);Metode;Alkohol;Sukker;Syre(29);
             //Lagringsgrad;Produsent;Grossist;Distributor;Emballasjetype;Korktype;Vareurl;Okologisk;Biodynamisk;Fairtrade;Miljosmart_emballasje;

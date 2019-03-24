@@ -7,15 +7,17 @@
 <h2>Add wine</h2>
 <div>
     <form method="get">
-        @Html.TextBox("search", @Model.Data.VinmonopoletId)
-        <!-- <input type="text" name="vinmonopoletId"> -->
+        @Html.TextBox("vinmonopoletId")
         <input type="submit">
     </form>
-
-    <ul>
-        <li>@Model.Data.VinmonopoletId</li>
-        <li>@Model.Data.Name</li>
-        <li>@Model.Data.Vintage</li>
-    </ul>
+    @if(@Model.Data != null){
+        <ul>
+            <li>@Model.Data.Name</li>
+            <li>@Model.Data.Vintage</li>
+            <li>@Model.Data.Producer</li>
+            <li>@Model.Data.Price</li>
+            <li>@Model.Data.Country</li>
+        </ul>
+    }
 </div>
 

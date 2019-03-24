@@ -20,17 +20,39 @@ namespace Web.Pages.Wines
 
         [BindProperty]
         public Model Data { get; set; }
-        public async Task OnGetAsync(string search = null)
+        public async Task OnGetAsync(string vinmonopoletId = null)
         {
-            var result = await _db.FindAsync<SearchableProduct>(search);
-            Data = new Model { VinmonopoletId = search };
+            if (vinmonopoletId == null)
+            {
+                return;
+            }
+            var result = await _db.FindAsync<SearchableProduct>(vinmonopoletId);
+            if (result != null)
+            {
+                Data = new Model
+                {
+                    VinmonopoletId = result.Id,
+                    Name = result.Name,
+                    Vintage = result.Vintage,
+                    Producer = result.Producer,
+                    Fruit = result.Fruit,
+                    Price = result.Price,
+                    Country = result.Country,
+                    ProductType = result.ProductType
+                };
+            }
         }
     }
 
     public class Model
     {
-        public string Name { get; set; }
-        public string Vintage { get; set; }
         public string VinmonopoletId { get; set; }
+        public string Name { get; set; }
+        public string Fruit { get; set; }
+        public string Vintage { get; set; }
+        public double Price { get; set; }
+        public string Country { get; set; }
+        public string ProductType { get; set; }
+        public string Producer { get; set; }
     }
 }

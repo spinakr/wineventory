@@ -27,9 +27,10 @@ namespace Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var connection = "Data Source=blogging.db";
+
+            var connectionString = Configuration.GetConnectionString("AzureSqlConnection");
             services.AddDbContext<WineContext>
-                (options => options.UseInMemoryDatabase(connection));
+                (options => options.UseSqlServer(connectionString));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
