@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router";
 import { Layout } from "./components/Layout";
-import Wines from "./wines/Wines";
-import AddWine from "./wines/AddWine";
+import WineList from "./wineList";
+import ProductSearch from "./productSearch";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -11,8 +11,8 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path="/" />
-        <Route path="/wines" component={Wines} />
-        <Route path="/addwine" component={AddWine} />
+        <Route path="/wines" component={WineList} />
+        <Route path="/search" component={ProductSearch} />
       </Layout>
     );
   }
