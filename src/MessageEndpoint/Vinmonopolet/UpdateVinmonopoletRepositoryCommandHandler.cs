@@ -57,8 +57,15 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
         private static SearchableProduct MapToWineInfo(string[] wineProps)
         {
             double.TryParse(wineProps[4], System.Globalization.NumberStyles.Any, CultureInfo.GetCultureInfo("no-NO"), out var parsedPrice);
-            Console.WriteLine(parsedPrice);
-            return new SearchableProduct(wineProps[1], wineProps[2], wineProps[25], wineProps[23], parsedPrice, wineProps[21], wineProps[6], wineProps[31]);
+            return new SearchableProduct(
+                id: wineProps[1],
+                name: wineProps[2],
+                fruit: wineProps[24],
+                vintage: wineProps[23],
+                price: parsedPrice,
+                country: wineProps[21],
+                productType: wineProps[6],
+                producer: wineProps[31]);
 
             //Datotid;Varenummer;Varenavn;Volum;Pris;Literpris;Varetype;Produktutvalg;Butikkategori;Fylde;Friskhet;Garvestoffer;Bitterhet;Sodme(14);
             //Farge;Lukt;Smak;Passertil01;Passertil02;Passertil03;Land(21);Distrikt;Underdistrikt;Argang;Rastoff(25);Metode;Alkohol;Sukker;Syre(29);
