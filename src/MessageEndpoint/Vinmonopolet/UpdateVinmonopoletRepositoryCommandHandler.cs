@@ -29,7 +29,7 @@ namespace Wineventory.MessageEndpoint.Vinmonopolet
         public async Task Handle(UpdateVinmonopoletRepositoryCommand message, IMessageHandlerContext context)
         {
             var vinmonopoletProducts = await FetchNewProductList();
-            await _db.Database.ExecuteSqlCommandAsync("TRUNCATE TABLE Products");
+            await _db.Database.ExecuteSqlCommandAsync("TRUNCATE TABLE public.\"Products\"");
             await _db.Products.AddRangeAsync(vinmonopoletProducts);
             Console.WriteLine("Writing products");
             await _db.SaveChangesAsync();

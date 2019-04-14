@@ -11,9 +11,9 @@ namespace Migration
         static async Task Main(string[] args)
         {
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
-            var connectionString = config.GetConnectionString("AzureSqlConnection");
+            var connectionString = config.GetConnectionString("VinmonopoletProducts");
             var builder = new DbContextOptionsBuilder<WineContext>();
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
             var dbContext = new WineContext(builder.Options);
             await dbContext.Database.MigrateAsync();
         }

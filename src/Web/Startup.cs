@@ -31,9 +31,9 @@ namespace Web
                 configuration.RootPath = "ClientApp/build";
             });
 
-            var connectionString = Configuration.GetConnectionString("AzureSqlConnection");
+            var connectionString = Configuration.GetConnectionString("VinmonopoletProducts");
             services.AddDbContext<WineContext>
-                (options => options.UseSqlServer(connectionString));
+                (options => options.UseNpgsql(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

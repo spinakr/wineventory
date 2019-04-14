@@ -2,7 +2,7 @@
 
 namespace Database.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,11 @@ namespace Database.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Fruit = table.Column<string>(nullable: true),
-                    Vintage = table.Column<string>(nullable: true)
+                    Vintage = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    Country = table.Column<string>(nullable: true),
+                    ProductType = table.Column<string>(nullable: true),
+                    Producer = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

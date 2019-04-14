@@ -1,3 +1,4 @@
+using System;
 using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -11,9 +12,9 @@ namespace Migration
         public WineContext CreateDbContext(string[] args)
         {
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
-            var connectionString = config.GetConnectionString("AzureSqlConnection");
+            var connectionString = config.GetConnectionString("VinmonopoletProducts");
             var builder = new DbContextOptionsBuilder<WineContext>();
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
             var dbContext = new WineContext(builder.Options);
             return dbContext;
         }
