@@ -12,7 +12,10 @@ namespace Wineventory.MessageEndpoint.Configuration
         public static EndpointConfiguration Configure()
         {
             var endpointConfiguration = new EndpointConfiguration("MessageEndpoint");
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+            transport.UseConventionalRoutingTopology();
+            transport.ConnectionString("host=rabbitmq");
+            endpointConfiguration.EnableInstallers();
             var container = ContainerConfiguration.Configure(LoadSettings());
 
             endpointConfiguration.UseContainer<AutofacBuilder>(

@@ -5,15 +5,11 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
 
 WORKDIR /
-
 # Copy files
 COPY . ./
 
-RUN dotnet restore
-RUN dotnet build
-
 WORKDIR /src/Web
-RUN dotnet publish --configuration Release --no-restore -o out 
+RUN dotnet publish --configuration Release -o out 
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-preview3

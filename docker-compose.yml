@@ -8,25 +8,68 @@ services:
             - variables.env
         ports:
             - "5432:5432"
+        volumes:
+            - db-data:/var/lib/postgresql/data
         networks:
-            - es_network
+            - wine_network
         healthcheck:
           test: "pg_isready -U postgres"
           interval: 10s
           timeout: 5s
           retries: 5
-    backend: 
+    rabbitmq:
+        container_name: rabbitmq
+        image: "rabbitmq:3-management"
+        ports:
+            - "15672:15672"
+        networks:
+            - wine_network
+        healthcheck:
+            test: ["CMD-SHELL", "if rabbitmqctl status; then \nexit 0 \nfi \nexit 1"]
+            interval: 10s
+            retries: 5
+    migration: 
         build:
-            dockerfile: DOCKERFILE
+            dockerfile: src/Migration/Dockerfile
             context: .
-        container_name: wineventory
+        container_name: migration
+        depends_on:
+          postgres:
+            condition: service_healthy
+        networks:
+            - wine_network
+    web: 
+        build:
+            dockerfile: src/Web/Dockerfile
+            context: .
+        container_name: web
         ports:
             - "5000:5000"
         depends_on:
           postgres:
             condition: service_healthy
+          rabbitmq:
+            condition: service_healthy
+          migration:
+            condition: service_started
         networks:
-            - es_network
+            - wine_network
+    messaging: 
+        build:
+            dockerfile: src/MessageEndpoint/Dockerfile
+            context: .
+        container_name: messaging
+        depends_on:
+          postgres:
+            condition: service_healthy
+          rabbitmq:
+            condition: service_healthy
+          migration:
+            condition: service_started
+        networks:
+            - wine_network
 networks:
-  es_network:
+  wine_network:
      driver: bridge
+volumes:
+    db-data:
