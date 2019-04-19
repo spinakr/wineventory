@@ -1,7 +1,7 @@
 using System;
 using Wineventory.Domain.Utils;
 
-namespace Wineventory.Domain.Inventory.Messages
+namespace Wineventory.Logic.Inventory
 {
     public class AddWineToInventoryCommand : ICommand
     {

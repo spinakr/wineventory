@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Wineventory.Domain;
-using Wineventory.Domain.Inventory.Messages;
 using Wineventory.Domain.Utils;
-using Wineventory.Domain.Vinmonopolet;
+using Wineventory.Logic.Inventory;
+using Wineventory.Web.Utils;
 
 namespace Web.Controllers
 {

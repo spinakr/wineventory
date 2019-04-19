@@ -1,6 +1,6 @@
 using System;
 
-namespace Wineventory.Domain.Vinmonopolet
+namespace Wineventory.Domain
 {
     public class SearchableProduct
     {

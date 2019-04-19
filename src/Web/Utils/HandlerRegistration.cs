@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Wineventory.Domain.Decorators;
 using Wineventory.Domain.Utils;
+using Wineventory.Logic.Vinmonopolet;
 
 namespace Wineventory.Web.Utils
 {
@@ -12,13 +13,15 @@ namespace Wineventory.Web.Utils
     {
         public static void AddHandlers(this IServiceCollection services)
         {
-            List<Type> handlerTypes = typeof(ICommand).Assembly.GetTypes()
+            List<Type> handlerTypes = typeof(ProductSearchQueryHandler).Assembly.GetTypes()
                 .Where(x => x.GetInterfaces().Any(y => IsHandlerInterface(y)))
                 .Where(x => x.Name.EndsWith("Handler"))
                 .ToList();
 
             foreach (Type type in handlerTypes)
             {
+                Type interfaceType = type.GetInterfaces().Single(y => IsHandlerInterface(y));
+                // services.AddTransient(interfaceType, type);
                 AddHandler(services, type);
             }
         }

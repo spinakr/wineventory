@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Wineventory.Domain.Vinmonopolet;
+using Wineventory.Domain;
 
 namespace Database
 {

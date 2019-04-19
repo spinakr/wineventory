@@ -10,7 +10,6 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using Wineventory.Domain;
-using Wineventory.Domain.Vinmonopolet;
 
 namespace Wineventory.MessageEndpoint.Vinmonopolet
 {

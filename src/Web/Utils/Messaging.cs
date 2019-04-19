@@ -1,6 +1,8 @@
 using System;
+using Microsoft.Extensions.DependencyInjection;
+using Wineventory.Domain.Utils;
 
-namespace Wineventory.Domain.Utils
+namespace Wineventory.Web.Utils
 {
     public class Messaging
     {
@@ -18,10 +20,14 @@ namespace Wineventory.Domain.Utils
             Type[] typeArgs = { command.GetType() };
             Type handlerType = type.MakeGenericType(typeArgs);
 
-            dynamic handler = _provider.GetService(handlerType);
-            Result result = handler.Handle((dynamic)command);
 
-            return result;
+            using (var scope = _provider.CreateScope())
+            {
+                dynamic handler = scope.ServiceProvider.GetService(handlerType);
+                Result result = handler.Handle((dynamic)command);
+
+                return result;
+            }
         }
 
         public T Dispatch<T>(IQuery<T> query)
@@ -30,10 +36,12 @@ namespace Wineventory.Domain.Utils
             Type[] typeArgs = { query.GetType(), typeof(T) };
             Type handlerType = type.MakeGenericType(typeArgs);
 
-            dynamic handler = _provider.GetService(handlerType);
-            T result = handler.Handle((dynamic)query);
-
-            return result;
+            using (var scope = _provider.CreateScope())
+            {
+                dynamic handler = scope.ServiceProvider.GetService(handlerType);
+                T result = handler.Handle((dynamic)query);
+                return result;
+            }
         }
     }
 }

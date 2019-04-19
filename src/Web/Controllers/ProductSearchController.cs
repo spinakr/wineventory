@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Wineventory.Domain;
-using Wineventory.Domain.Vinmonopolet;
+using Wineventory.Domain.Utils;
+using Wineventory.Logic.Vinmonopolet;
+using Wineventory.Logic.Vinmonopolet.Dtos;
+using Wineventory.Web.Utils;
 
 namespace Web.Controllers
 {
@@ -13,43 +16,18 @@ namespace Web.Controllers
     public class ProductSearchController : Controller
     {
         private WineContext _db;
+        private Messaging _messaging;
 
-        public ProductSearchController(WineContext context)
+        public ProductSearchController(WineContext context, Messaging messaging)
         {
             _db = context;
+            _messaging = messaging;
         }
 
         [HttpGet("{vinmonopoletId}")]
-        public async Task<ProductSearchResult> ProductSearch(string vinmonopoletId)
+        public async Task<ProductsSearchResultDto> ProductSearch(string vinmonopoletId)
         {
-            var result = await _db.FindAsync<SearchableProduct>(vinmonopoletId);
-            if (result != null)
-            {
-                return new ProductSearchResult
-                {
-                    VinmonopoletId = result.Id,
-                    Name = result.Name,
-                    Vintage = result.Vintage,
-                    Producer = result.Producer,
-                    Fruit = result.Fruit,
-                    Price = result.Price,
-                    Country = result.Country,
-                    ProductType = result.ProductType
-                };
-            }
-            return null;
-        }
-
-        public class ProductSearchResult
-        {
-            public string VinmonopoletId { get; set; }
-            public string Name { get; set; }
-            public string Fruit { get; set; }
-            public string Vintage { get; set; }
-            public double Price { get; set; }
-            public string Country { get; set; }
-            public string ProductType { get; set; }
-            public string Producer { get; set; }
+            return _messaging.Dispatch(new ProductSearchQuery(vinmonopoletId));
         }
     }
 }

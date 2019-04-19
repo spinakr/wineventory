@@ -36,8 +36,8 @@ namespace Web
             services.AddDbContext<WineContext>
                 (options => options.UseNpgsql(connectionString));
 
-            services.AddSingleton<Messaging>();
             services.AddHandlers();
+            services.AddSingleton<Messaging>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

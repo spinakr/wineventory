@@ -1,7 +1,7 @@
 ﻿using System;
 using Wineventory.Domain.ValueObjects;
 
-namespace Wineventory.Domain.Inventory
+namespace Wineventory.Domain
 {
     public class InventoryWine
     {
