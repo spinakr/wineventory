@@ -7,10 +7,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Database;
-using Domain;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using Wineventory.Domain;
+using Wineventory.Domain.Vinmonopolet;
 
 namespace Wineventory.MessageEndpoint.Vinmonopolet
 {

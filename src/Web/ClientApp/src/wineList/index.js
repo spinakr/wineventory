@@ -8,7 +8,7 @@ class Wines extends Component {
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((x, i) => {
           return (
             <div className="column is-one-third">
-              <ProductInfoCard product={{ name: "Wine Name", vintage: "2018", country: "France", fruit: "Pinot Noir", price: "210" }} />
+              <ProductInfoCard key={i} product={{ name: "Wine Name", vintage: "2018", country: "France", fruit: "Pinot Noir", price: "210" }} />
             </div>
           );
         })}

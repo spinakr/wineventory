@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wineventory.Domain.Utils;
+using Wineventory.Web.Utils;
 
 namespace Web
 {
@@ -20,7 +22,6 @@ namespace Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddNewtonsoftJson();
@@ -34,9 +35,11 @@ namespace Web
             var connectionString = Configuration.GetConnectionString("VinmonopoletProducts");
             services.AddDbContext<WineContext>
                 (options => options.UseNpgsql(connectionString));
+
+            services.AddSingleton<Messaging>();
+            services.AddHandlers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

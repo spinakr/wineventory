@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wineventory.Domain;
 
-namespace Domain
+namespace Wineventory.Domain.Vinmonopolet
 {
     public interface IVinmonopoletProductRepository
     {

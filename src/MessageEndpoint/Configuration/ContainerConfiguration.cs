@@ -1,7 +1,6 @@
 using System.Net.Http;
 using Autofac;
 using Database;
-using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

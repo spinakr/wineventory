@@ -5,21 +5,25 @@ using System.Threading.Tasks;
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Wineventory.Domain;
+using Wineventory.Domain.Inventory.Messages;
+using Wineventory.Domain.Utils;
 using Wineventory.Domain.Vinmonopolet;
 
 namespace Web.Controllers
 {
-    [Route("api/vinmonopoletProduct")]
-    public class ProductSearchController : Controller
+    [Route("api/inventoryProducts")]
+    public class InventoryProductsController : Controller
     {
         private WineContext _db;
+        private Messaging _messaging;
 
-        public ProductSearchController(WineContext context)
+        public InventoryProductsController(WineContext context, Messaging messaging)
         {
             _db = context;
+            _messaging = messaging;
         }
 
-        [HttpGet("{vinmonopoletId}")]
+        [HttpGet]
         public async Task<ProductSearchResult> ProductSearch(string vinmonopoletId)
         {
             var result = await _db.FindAsync<SearchableProduct>(vinmonopoletId);
@@ -38,6 +42,13 @@ namespace Web.Controllers
                 };
             }
             return null;
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct()
+        {
+            var res = _messaging.Dispatch(new AddWineToInventoryCommand());
+            return Ok();
         }
 
         public class ProductSearchResult

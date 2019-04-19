@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wineventory.Domain
+namespace Wineventory.Domain.ValueObjects
 {
     public class WineIdentifyer : IEquatable<WineIdentifyer>
     {

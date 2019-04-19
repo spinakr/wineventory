@@ -11,18 +11,18 @@ const ProductSearchContainer = () => {
   };
 
   const addProduct = async () => {
-    let res = await fetch(`api/vinmonopoletProduct`, {
+    await fetch(`api/inventoryProducts`, {
       method: "POST",
       body: JSON.stringify(state.searchResult)
     });
   };
 
   return (
-    <div className="section">
-      <div className="container">
+    <div>
+      <div className="section">
         <ProductSearch searchProduct={searchProduct} searchResult={state.searchResult} addProduct={addProduct} />
-        {state.searchResult ? <ProductInfoCard product={state.searchResult} /> : null}
       </div>
+      <div className="section">{state.searchResult ? <ProductInfoCard product={state.searchResult} /> : null}</div>
     </div>
   );
 };

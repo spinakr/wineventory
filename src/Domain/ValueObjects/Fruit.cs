@@ -1,4 +1,4 @@
-﻿namespace Wineventory.Domain
+﻿namespace Wineventory.Domain.ValueObjects
 {
     public class Fruit
     {

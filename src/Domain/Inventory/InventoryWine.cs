@@ -1,10 +1,14 @@
 ﻿using System;
-namespace Wineventory.Domain
+using Wineventory.Domain.ValueObjects;
+
+namespace Wineventory.Domain.Inventory
 {
     public class InventoryWine
     {
-        public WineIdentifyer WineId { get; set; }
         public string VinmonopoletId { get; set; }
+        public string Producer { get; }
+        public string WineName { get; }
+        public string Vintage { get; }
         public Fruit Fruit { get; set; }
         public Country Country { get; set; }
         public DateTime PurchaseDate { get; set; }
