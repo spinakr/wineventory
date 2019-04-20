@@ -9,7 +9,7 @@ using Wineventory.Domain.Utils;
 using Wineventory.Logic.Inventory;
 using Wineventory.Web.Utils;
 
-namespace Web.Controllers
+namespace Wineventory.Web.Controllers
 {
     [Route("api/inventoryProducts")]
     public class InventoryProductsController : Controller
@@ -24,43 +24,21 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ProductSearchResult> ProductSearch(string vinmonopoletId)
+        public async Task<IEnumerable<InventoryWineDto>> ProductSearch(string vinmonopoletId)
         {
-            var result = await _db.FindAsync<SearchableProduct>(vinmonopoletId);
-            if (result != null)
-            {
-                return new ProductSearchResult
-                {
-                    VinmonopoletId = result.Id,
-                    Name = result.Name,
-                    Vintage = result.Vintage,
-                    Producer = result.Producer,
-                    Fruit = result.Fruit,
-                    Price = result.Price,
-                    Country = result.Country,
-                    ProductType = result.ProductType
-                };
-            }
-            return null;
+            return new List<InventoryWineDto>();
         }
 
         [HttpPost]
-        public IActionResult AddProduct()
+        public IActionResult AddProduct([FromBody]InventoryWineDto wine)
         {
-            var res = _messaging.Dispatch(new AddWineToInventoryCommand());
-            return Ok();
-        }
-
-        public class ProductSearchResult
-        {
-            public string VinmonopoletId { get; set; }
-            public string Name { get; set; }
-            public string Fruit { get; set; }
-            public string Vintage { get; set; }
-            public double Price { get; set; }
-            public string Country { get; set; }
-            public string ProductType { get; set; }
-            public string Producer { get; set; }
+            var req = Request.Body;
+            var res = _messaging.Dispatch(new AddWineToInventoryCommand(wine));
+            if (res.IsSuccess)
+            {
+                return Ok();
+            }
+            return BadRequest(res.ErrorMessage);
         }
     }
 }

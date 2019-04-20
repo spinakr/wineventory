@@ -1,5 +1,6 @@
 using Database;
 using Wineventory.Domain;
+using Wineventory.Domain.Decorators;
 using Wineventory.Domain.Utils;
 using Wineventory.Logic.Vinmonopolet.Dtos;
 
