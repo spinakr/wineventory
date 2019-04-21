@@ -6,7 +6,7 @@ namespace Wineventory.Domain.Utils
 {
     public abstract class EventSourcedAggregate
     {
-        public Guid Id { get; protected set; }
+        public string Id { get; set; }
 
         public Queue<IEvent> PendingEvents { get; private set; }
 

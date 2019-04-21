@@ -1,4 +1,6 @@
 using Database;
+using Marten;
+using Marten.Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wineventory.Domain.Inventory;
 using Wineventory.Domain.Utils;
+using Wineventory.Logic.Inventory;
 using Wineventory.Web.Utils;
 
 namespace Web
@@ -32,9 +36,32 @@ namespace Web
                 configuration.RootPath = "ClientApp/build";
             });
 
-            var connectionString = Configuration.GetConnectionString("VinmonopoletProducts");
+            var sqlConnectionString = Configuration.GetConnectionString("VinmonopoletProducts");
             services.AddDbContext<WineContext>
-                (options => options.UseNpgsql(connectionString));
+                (options => options.UseNpgsql(sqlConnectionString));
+
+            services.AddScoped(sp =>
+           {
+               var documentStore = DocumentStore.For(options =>
+               {
+                   var config = Configuration.GetSection("EventStore");
+                   var connectionString = config.GetValue<string>("ConnectionString");
+                   var schemaName = config.GetValue<string>("Schema");
+
+                   options.Connection(connectionString);
+                   options.AutoCreateSchemaObjects = AutoCreate.All;
+                   options.Events.DatabaseSchemaName = schemaName;
+                   options.DatabaseSchemaName = schemaName;
+
+                   options.Events.StreamIdentity = StreamIdentity.AsString;
+                   options.Events.InlineProjections.AggregateStreamsWith<InventoryWine>();
+                   options.Events.InlineProjections.Add(new InventoryWineViewProjection());
+
+                   options.Events.AddEventType(typeof(FirstBottleOfWineAdded));
+               });
+
+               return documentStore.OpenSession();
+           });
 
             services.AddHandlers();
             services.AddSingleton<Messaging>();
