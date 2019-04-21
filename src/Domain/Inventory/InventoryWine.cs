@@ -19,7 +19,7 @@ namespace Wineventory.Domain.Inventory
         {
             var @event = new FirstBottleOfWineAdded
             {
-                VinmonopoletId = vinmonopoletId,
+                Id = vinmonopoletId,
                 Producer = producer,
                 Name = wineName,
                 Fruit = fruit,
@@ -31,13 +31,32 @@ namespace Wineventory.Domain.Inventory
             Append(@event);
         }
 
+        public void AddBottle(string vintage, int price)
+        {
+            var @event = new BottleOfWineAdded
+            {
+                Id = Id,
+                Vintage = vintage,
+                Price = price,
+                PurchaseDate = DateTime.Today
+            };
+            Apply(@event);
+            Append(@event);
+        }
+
         public void Apply(FirstBottleOfWineAdded @event)
         {
-            Id = @event.VinmonopoletId;
+            Id = @event.Id;
             Producer = @event.Producer;
             Name = @event.Name;
             Fruit = @event.Fruit;
             Country = @event.Country;
+            Bottles = new List<Bottle>();
+        }
+
+        public void Apply(BottleOfWineAdded @event)
+        {
+            Bottles.Add(new Bottle(@event.PurchaseDate, @event.Price, @event.Vintage));
         }
     }
 }

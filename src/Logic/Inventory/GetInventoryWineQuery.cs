@@ -7,16 +7,16 @@ using Wineventory.Domain.Utils;
 
 namespace Wineventory.Logic.Inventory
 {
-    public class GetInventoryWineQuery : IQuery<InventoryWineDto>
+    public class GetInventoryWineQuery : IQuery<InventoryWineView>
     {
         public string VinmonopoletId { get; set; }
-        public GetInventoryWineQuery()
+        public GetInventoryWineQuery(string vinmonopoletId)
         {
-
+            VinmonopoletId = vinmonopoletId;
         }
     }
 
-    public class GetInventoryWineQueryHandler : IQueryHandler<GetInventoryWineQuery, InventoryWineDto>
+    public class GetInventoryWineQueryHandler : IQueryHandler<GetInventoryWineQuery, InventoryWineView>
     {
         private readonly IDocumentSession _session;
         public GetInventoryWineQueryHandler(IDocumentSession session)
@@ -24,27 +24,11 @@ namespace Wineventory.Logic.Inventory
             _session = session;
         }
 
-        public InventoryWineDto Handle(GetInventoryWineQuery query)
+        public InventoryWineView Handle(GetInventoryWineQuery query)
         {
             return _session
                 .Query<InventoryWineView>()
-                .Select(p => new InventoryWineDto
-                {
-                    VinmonopoletId = p.Id,
-                    Producer = p.Producer,
-                    ProductType = p.ProductType,
-                    Name = p.Name,
-                    Country = p.Country,
-                    // public string VinmonopoletId { get; set; }
-                    // public string ProductType { get; set; }
-                    // public string Producer { get; set; }
-                    // public string Name { get; set; }
-                    // public string Vintage { get; set; }
-                    // public string Fruit { get; set; }
-                    // public string Country { get; set; }
-                    // public int Price { get; set; }
-                })
-                .FirstOrDefault(p => p.VinmonopoletId == query.VinmonopoletId);
+                .FirstOrDefault(p => p.Id == query.VinmonopoletId);
         }
     }
 }

@@ -58,6 +58,7 @@ namespace Web
                    options.Events.InlineProjections.Add(new InventoryWineViewProjection());
 
                    options.Events.AddEventType(typeof(FirstBottleOfWineAdded));
+                   options.Events.AddEventType(typeof(BottleOfWineAdded));
                });
 
                return documentStore.OpenSession();

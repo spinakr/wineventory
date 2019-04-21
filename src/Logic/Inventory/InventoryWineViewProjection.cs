@@ -10,18 +10,24 @@ namespace Wineventory.Logic.Inventory
     {
         public InventoryWineViewProjection()
         {
-            ProjectEvent<FirstBottleOfWineAdded>(ev => ev.VinmonopoletId, (view, @event) => ApplyEvent(view, @event));
+            ProjectEvent<FirstBottleOfWineAdded>(ev => ev.Id, (view, @event) => ApplyEvent(view, @event));
+            ProjectEvent<BottleOfWineAdded>(ev => ev.Id, (view, @event) => ApplyEvent(view, @event));
         }
 
         internal void ApplyEvent(InventoryWineView view, FirstBottleOfWineAdded eevent)
         {
-            view.Id = eevent.VinmonopoletId;
+            view.Id = eevent.Id;
             view.Producer = eevent.Producer;
             view.Name = eevent.Name;
             view.Fruit = eevent.Fruit;
             view.Country = eevent.Country;
             view.ProductType = eevent.ProductType;
             view.Bottles = new List<Bottle>();
+        }
+
+        internal void ApplyEvent(InventoryWineView view, BottleOfWineAdded eevent)
+        {
+            view.Bottles.Add(new Bottle(eevent.PurchaseDate, eevent.Price, eevent.Vintage));
         }
     }
 

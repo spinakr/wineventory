@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Wineventory.Domain.Decorators;
+using Wineventory.Domain.Inventory;
 using Wineventory.Domain.Utils;
 
 namespace Wineventory.Logic.Inventory
 {
-    public class GetInventoryWinesQuery : IQuery<List<InventoryWineDto>>
+    public class GetInventoryWinesQuery : IQuery<List<InventoryWine>>
     {
         public GetInventoryWinesQuery()
         {
@@ -13,14 +14,14 @@ namespace Wineventory.Logic.Inventory
         }
     }
 
-    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, List<InventoryWineDto>>
+    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, List<InventoryWine>>
     {
         public GetInventoryWinesQueryHandler()
         {
 
         }
 
-        public List<InventoryWineDto> Handle(GetInventoryWinesQuery query)
+        public List<InventoryWine> Handle(GetInventoryWinesQuery query)
         {
             throw new NotImplementedException();
         }
