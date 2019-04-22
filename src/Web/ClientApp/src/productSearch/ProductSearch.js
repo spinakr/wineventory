@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProductSearch = ({ searchProduct, searchResult, addProduct }) => {
+const ProductSearch = ({ searchProduct, showAddProductButton, addProduct }) => {
   const [searchInput, setSearchInput] = useState("");
   return (
     <form>
@@ -13,7 +13,7 @@ const ProductSearch = ({ searchProduct, searchResult, addProduct }) => {
             Search
           </a>
         </div>
-        {searchResult && (
+        {showAddProductButton && (
           <div className="control">
             <a className="button" onClick={() => addProduct()}>
               Add
