@@ -1,5 +1,5 @@
 # Build image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview3 AS builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview4 AS builder
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
@@ -12,8 +12,8 @@ WORKDIR /src/Web
 RUN dotnet publish --configuration Release -o out 
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-preview3
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-preview4
 WORKDIR /bin
 COPY --from=builder /src/Web/out .
-ENV ASPNETCORE_URLS="http://*:5000"
+ENV ASPNETCORE_URLS="http://*:80"
 ENTRYPOINT ["dotnet", "Web.dll"]
