@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wineventory.Domain.Inventory;
-using Wineventory.Domain.Utils;
 using Wineventory.Logic.Inventory;
 using Wineventory.Web.Utils;
 
@@ -84,7 +83,12 @@ namespace Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseMvc();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSpa(spa =>
             {
@@ -95,6 +99,7 @@ namespace Web
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
         }
     }
 }

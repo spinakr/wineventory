@@ -15,4 +15,4 @@ content-type: application/json
 ###
 
 
-GET https://localhost:5001/api/inventoryProducts/3833001
+GET https://localhost:5001/api/inventoryProducts/4624501

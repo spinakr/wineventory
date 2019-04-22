@@ -17,10 +17,10 @@ namespace Wineventory.Logic.Inventory
         public string Fruit { get; set; }
         public string Country { get; set; }
         public string Vintage { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
         public string ProductType { get; set; }
 
-        public AddBottleToInventoryCommand(string vinmonopoletId, string producer, string name, string fruit, string country, string vintage, int price, string productType)
+        public AddBottleToInventoryCommand(string vinmonopoletId, string producer, string name, string fruit, string country, string vintage, double price, string productType)
         {
             VinmonopoletId = vinmonopoletId;
             Producer = producer;
@@ -51,7 +51,7 @@ namespace Wineventory.Logic.Inventory
             {
                 wine = new InventoryWine(command.VinmonopoletId, command.Producer, command.Name, command.ProductType, command.Fruit, command.Country);
             }
-            wine.AddBottle(command.Vintage, command.Price);
+            wine.AddBottle(command.Vintage, (int)command.Price);
             _store.Append(wine.Id, wine.PendingEvents.ToArray());
             _session.SaveChanges();
             return Result.Success;

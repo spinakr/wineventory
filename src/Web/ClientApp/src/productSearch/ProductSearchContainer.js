@@ -13,6 +13,9 @@ const ProductSearchContainer = () => {
   const addProduct = async () => {
     await fetch(`api/inventoryProducts`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(state.searchResult)
     });
   };
