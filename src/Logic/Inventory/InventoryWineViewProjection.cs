@@ -16,29 +16,13 @@ namespace Wineventory.Logic.Inventory
 
         internal void ApplyEvent(InventoryWineView view, FirstBottleOfWineAdded eevent)
         {
-            view.Id = eevent.Id;
-            view.Producer = eevent.Producer;
-            view.Name = eevent.Name;
-            view.Fruit = eevent.Fruit;
-            view.Country = eevent.Country;
-            view.ProductType = eevent.ProductType;
-            view.Bottles = new List<Bottle>();
+            view.Apply(eevent);
         }
 
         internal void ApplyEvent(InventoryWineView view, BottleOfWineAdded eevent)
         {
-            view.Bottles.Add(new Bottle(eevent.PurchaseDate, eevent.Price, eevent.Vintage));
+            view.Apply(eevent);
         }
     }
 
-    public class InventoryWineView
-    {
-        public string Id { get; set; }
-        public string Producer { get; set; }
-        public string Name { get; set; }
-        public string ProductType { get; set; }
-        public string Fruit { get; set; }
-        public string Country { get; set; }
-        public List<Bottle> Bottles { get; set; }
-    }
 }

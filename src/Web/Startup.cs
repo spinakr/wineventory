@@ -55,6 +55,7 @@ namespace Web
                    options.Events.StreamIdentity = StreamIdentity.AsString;
                    options.Events.InlineProjections.AggregateStreamsWith<InventoryWine>();
                    options.Events.InlineProjections.Add(new InventoryWineViewProjection());
+                   options.Events.InlineProjections.Add(new InventoryWinesViewProjection());
 
                    options.Events.AddEventType(typeof(FirstBottleOfWineAdded));
                    options.Events.AddEventType(typeof(BottleOfWineAdded));

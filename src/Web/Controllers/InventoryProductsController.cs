@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Wineventory.Logic.Inventory;
@@ -21,6 +22,12 @@ namespace Wineventory.Web.Controllers
         public InventoryWineView GetInventoryWine(string vinmonopoletId)
         {
             return _messaging.Dispatch(new GetInventoryWineQuery(vinmonopoletId));
+        }
+
+        [HttpGet]
+        public InventoryWinesView GetInventoryWines()
+        {
+            return _messaging.Dispatch(new GetInventoryWinesQuery());
         }
 
         [HttpPost]

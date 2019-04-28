@@ -1,29 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Marten;
 using Wineventory.Domain.Decorators;
 using Wineventory.Domain.Inventory;
 using Wineventory.Domain.Utils;
 
 namespace Wineventory.Logic.Inventory
 {
-    public class GetInventoryWinesQuery : IQuery<List<InventoryWine>>
+    public class GetInventoryWinesQuery : IQuery<InventoryWinesView>
     {
-        public GetInventoryWinesQuery()
-        {
-
-        }
+        public GetInventoryWinesQuery() { }
     }
 
-    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, List<InventoryWine>>
+    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, InventoryWinesView>
     {
-        public GetInventoryWinesQueryHandler()
+        private readonly IDocumentSession _session;
+        public GetInventoryWinesQueryHandler(IDocumentSession session)
         {
-
+            _session = session;
         }
 
-        public List<InventoryWine> Handle(GetInventoryWinesQuery query)
+        public InventoryWinesView Handle(GetInventoryWinesQuery query)
         {
-            throw new NotImplementedException();
+            return _session
+                .Query<InventoryWinesView>()
+                .FirstOrDefault();
         }
     }
 }
