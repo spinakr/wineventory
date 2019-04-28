@@ -17,5 +17,5 @@ GET https://localhost:5001/api/inventoryProducts/3833001
 
 
 ###
-GET https://localhost:5000/api/inventoryProducts
+GET https://localhost:5001/api/inventoryProducts
 

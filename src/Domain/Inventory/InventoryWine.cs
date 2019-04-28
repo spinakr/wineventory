@@ -15,7 +15,7 @@ namespace Wineventory.Domain.Inventory
 
         public InventoryWine() { }
 
-        public InventoryWine(string vinmonopoletId, string producer, string wineName, string productType, string fruit, string country)
+        public InventoryWine(string vinmonopoletId, string producer, string wineName, string productType, string fruit, string country, string vintage, int price)
         {
             var @event = new FirstBottleOfWineAdded
             {
@@ -24,7 +24,10 @@ namespace Wineventory.Domain.Inventory
                 Name = wineName,
                 Fruit = fruit,
                 Country = country,
-                ProductType = productType
+                ProductType = productType,
+                Vintage = vintage,
+                Price = price,
+                PurchaseDate = DateTime.Today
             };
 
             Apply(@event);
@@ -52,6 +55,7 @@ namespace Wineventory.Domain.Inventory
             Fruit = @event.Fruit;
             Country = @event.Country;
             Bottles = new List<Bottle>();
+            Bottles.Add(new Bottle(@event.PurchaseDate, @event.Price, @event.Vintage));
         }
 
         public void Apply(BottleOfWineAdded @event)

@@ -19,13 +19,13 @@ namespace Wineventory.Web.Controllers
         }
 
         [HttpGet("{vinmonopoletId}")]
-        public InventoryWineView GetInventoryWine(string vinmonopoletId)
+        public InventoryWineViewProjection.InventoryWineView GetInventoryWine(string vinmonopoletId)
         {
             return _messaging.Dispatch(new GetInventoryWineQuery(vinmonopoletId));
         }
 
         [HttpGet]
-        public InventoryWinesView GetInventoryWines()
+        public InventoryWinesViewProjection.InventoryWinesView GetInventoryWines()
         {
             return _messaging.Dispatch(new GetInventoryWinesQuery());
         }

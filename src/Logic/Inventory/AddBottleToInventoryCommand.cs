@@ -49,9 +49,12 @@ namespace Wineventory.Logic.Inventory
             var wine = _store.AggregateStream<InventoryWine>(command.VinmonopoletId);
             if (wine?.Bottles == null || !wine.Bottles.Any())
             {
-                wine = new InventoryWine(command.VinmonopoletId, command.Producer, command.Name, command.ProductType, command.Fruit, command.Country);
+                wine = new InventoryWine(command.VinmonopoletId, command.Producer, command.Name, command.ProductType, command.Fruit, command.Country, command.Vintage, (int)command.Price);
             }
-            wine.AddBottle(command.Vintage, (int)command.Price);
+            else
+            {
+                wine.AddBottle(command.Vintage, (int)command.Price);
+            }
             _store.Append(wine.Id, wine.PendingEvents.ToArray());
             _session.SaveChanges();
             return Result.Success;

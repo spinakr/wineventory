@@ -7,7 +7,7 @@ using Wineventory.Domain.Utils;
 
 namespace Wineventory.Logic.Inventory
 {
-    public class GetInventoryWineQuery : IQuery<InventoryWineView>
+    public class GetInventoryWineQuery : IQuery<InventoryWineViewProjection.InventoryWineView>
     {
         public string VinmonopoletId { get; set; }
         public GetInventoryWineQuery(string vinmonopoletId)
@@ -16,7 +16,7 @@ namespace Wineventory.Logic.Inventory
         }
     }
 
-    public class GetInventoryWineQueryHandler : IQueryHandler<GetInventoryWineQuery, InventoryWineView>
+    public class GetInventoryWineQueryHandler : IQueryHandler<GetInventoryWineQuery, InventoryWineViewProjection.InventoryWineView>
     {
         private readonly IDocumentSession _session;
         public GetInventoryWineQueryHandler(IDocumentSession session)
@@ -24,10 +24,10 @@ namespace Wineventory.Logic.Inventory
             _session = session;
         }
 
-        public InventoryWineView Handle(GetInventoryWineQuery query)
+        public InventoryWineViewProjection.InventoryWineView Handle(GetInventoryWineQuery query)
         {
             return _session
-                .Query<InventoryWineView>()
+                .Query<InventoryWineViewProjection.InventoryWineView>()
                 .FirstOrDefault(p => p.Id == query.VinmonopoletId);
         }
     }

@@ -8,12 +8,12 @@ using Wineventory.Domain.Utils;
 
 namespace Wineventory.Logic.Inventory
 {
-    public class GetInventoryWinesQuery : IQuery<InventoryWinesView>
+    public class GetInventoryWinesQuery : IQuery<InventoryWinesViewProjection.InventoryWinesView>
     {
         public GetInventoryWinesQuery() { }
     }
 
-    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, InventoryWinesView>
+    public class GetInventoryWinesQueryHandler : IQueryHandler<GetInventoryWinesQuery, InventoryWinesViewProjection.InventoryWinesView>
     {
         private readonly IDocumentSession _session;
         public GetInventoryWinesQueryHandler(IDocumentSession session)
@@ -21,10 +21,10 @@ namespace Wineventory.Logic.Inventory
             _session = session;
         }
 
-        public InventoryWinesView Handle(GetInventoryWinesQuery query)
+        public InventoryWinesViewProjection.InventoryWinesView Handle(GetInventoryWinesQuery query)
         {
             return _session
-                .Query<InventoryWinesView>()
+                .Query<InventoryWinesViewProjection.InventoryWinesView>()
                 .FirstOrDefault();
         }
     }
